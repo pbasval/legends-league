@@ -22,7 +22,18 @@ export default function RootLayout({
         />
       </head>
       <body>
-        {children}
+        <div className="flex flex-col min-h-screen">
+          <header className="px-4 py-3 border-b lg:px-6">
+            <div className="container flex items-center gap-4 px-0 mx-auto">
+              <a className="flex items-center gap-2" href="/">
+                <span className="font-semibold">Legends League</span>
+              </a>
+            </div>
+          </header>
+          <main className="flex-1">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );

@@ -27,21 +27,39 @@ export default async function RankingPage({ params }: { params: { id: string } }
 
   return (
     <div className="container p-4 mx-auto sm:p-6 md:p-8">
-      <h1 className="mb-4 text-2xl font-bold text-center sm:text-3xl">
-        {league.name} - Ranking
-      </h1>
-      <div className="max-w-xl mx-auto overflow-hidden bg-card rounded-lg shadow-lg">
-        <ul className="divide-y divide-border">
-          {teams.map((team, index) => (
-            <li key={team.id} className="flex items-center justify-between p-4">
-              <div className="flex items-center gap-4">
-                <span className="text-lg font-bold text-muted-foreground">{index + 1}</span>
-                <span className="font-semibold">{team.name}</span>
-              </div>
-              <span className="font-bold text-primary">{team.elo_rating}</span>
-            </li>
-          ))}
-        </ul>
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          {league.name}
+        </h1>
+        <p className="mt-2 text-lg text-muted-foreground">League Ranking</p>
+      </div>
+      <div className="max-w-2xl mx-auto border rounded-lg shadow-lg">
+        <div className="relative w-full overflow-auto">
+          <table className="w-full text-sm caption-bottom">
+            <thead className="[&>tr]:border-b">
+              <tr className="border-b transition-colors hover:bg-muted/50">
+                <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground w-[50px]">
+                  Rank
+                </th>
+                <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
+                  Team
+                </th>
+                <th className="h-12 px-4 text-right align-middle font-medium text-muted-foreground">
+                  ELO Rating
+                </th>
+              </tr>
+            </thead>
+            <tbody className="[&>tr:last-child]:border-0">
+              {teams.map((team, index) => (
+                <tr key={team.id} className="border-b transition-colors hover:bg-muted/50">
+                  <td className="p-4 text-center align-middle font-medium">{index + 1}</td>
+                  <td className="p-4 font-medium align-middle">{team.name}</td>
+                  <td className="p-4 text-right align-middle font-semibold">{team.elo_rating}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   )

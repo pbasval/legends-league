@@ -3,6 +3,11 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import LogoutButton from '@/components/auth/LogoutButton'
 
+type League = {
+  id: string;
+  name: string;
+}
+
 export default async function DashboardPage() {
   const supabase = createClient()
 
@@ -14,8 +19,6 @@ export default async function DashboardPage() {
     redirect('/login')
   }
 
-  // Fetch leagues where the user is a DT or a player in one of the teams.
-  // This query is complex and could be optimized with a database view or function.
   const { data: leagues, error } = await supabase.rpc('get_user_leagues', { p_user_id: user.id })
 
   if (error) {
@@ -41,7 +44,7 @@ export default async function DashboardPage() {
         <h2 className="text-lg font-semibold">Your Leagues</h2>
         {leagues && leagues.length > 0 ? (
           <div className="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-2 md:grid-cols-3">
-            {leagues.map((league) => (
+            {leagues.map((league: League) => (
               <Link key={league.id} href={`/dashboard/leagues/${league.id}`}>
                 <div className="p-4 transition-transform transform bg-card rounded-lg shadow hover:scale-105">
                   <h3 className="font-bold text-primary">{league.name}</h3>

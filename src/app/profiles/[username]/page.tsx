@@ -40,7 +40,7 @@ export default async function ProfilePage({ params }: { params: { username: stri
         {teamInfo && (
           <div className="pt-4 mt-4 text-center border-t border-border">
             <h2 className="text-sm font-semibold text-muted-foreground">Current Team</h2>
-            <p className="text-lg font-medium">{teamInfo.name}</p>
+            <p className="text-lg font-medium">{teamInfo[0]?.name}</p>
           </div>
         )}
       </div>

@@ -29,8 +29,8 @@ export default async function MatchResultPage({ params }: { params: { id: string
       team2_score,
       elo_change_team1,
       elo_change_team2,
-      team1:teams!matches_team1_id_fkey (name, elo_rating),
-      team2:teams!matches_team2_id_fkey (name, elo_rating),
+      team1:teams (name, elo_rating),
+      team2:teams (name, elo_rating),
       mvp:profiles (full_name, player_rating)
     `
     )
@@ -43,12 +43,12 @@ export default async function MatchResultPage({ params }: { params: { id: string
   }
 
   // Ensure nested objects are not null before accessing properties
-  const team1_name = match.team1?.name ?? 'Team 1';
-  const team1_elo_rating = match.team1?.elo_rating ?? 1000;
-  const team2_name = match.team2?.name ?? 'Team 2';
-  const team2_elo_rating = match.team2?.elo_rating ?? 1000;
-  const mvp_name = match.mvp?.full_name ?? 'N/A';
-  const mvp_rating = match.mvp?.player_rating ?? 800;
+  const team1_name = Array.isArray(match.team1) && match.team1.length > 0 ? match.team1[0]?.name ?? 'Team 1' : 'Team 1';
+  const team1_elo_rating = Array.isArray(match.team1) && match.team1.length > 0 ? match.team1[0]?.elo_rating ?? 1000 : 1000;
+  const team2_name = Array.isArray(match.team2) && match.team2.length > 0 ? match.team2[0]?.name ?? 'Team 2' : 'Team 2';
+  const team2_elo_rating = Array.isArray(match.team2) && match.team2.length > 0 ? match.team2[0]?.elo_rating ?? 1000 : 1000;
+  const mvp_name = Array.isArray(match.mvp) && match.mvp.length > 0 ? match.mvp[0]?.full_name ?? 'N/A' : 'N/A';
+  const mvp_rating = Array.isArray(match.mvp) && match.mvp.length > 0 ? match.mvp[0]?.player_rating ?? 800 : 800;
 
   return (
     <div className="container mx-auto p-4 sm:p-6 md:p-8">
